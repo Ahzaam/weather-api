@@ -1,51 +1,57 @@
 {
-  
-  "name": "weatherapp-api",
-  
-  "version": "1.0.0",
-  
-  "description": "",
-  
-  "main": "index.js",
-  
-  "scripts": {
-  
-    
-  "test": "echo \"Error: no test specified\" && exit 1",
-  
-    
-  "devStart": "nodemon server.js"
-  
-  },
-  
-  "keywords": [],
-  
-  "author": "",
-  
-  "license": "ISC",
-  
-  "dependencies": {
-  
-    
-  "cors": "^2.8.5",
-  
-    
-  "dotenv": "^16.0.2",
-  
-    
-  "express": "^4.18.1",
-  
-    
-  "firebase": "^9.9.4",
-  
-    
-  "firebase-admin": "^11.0.1",
-  
-    
-  "node-fetch": "^3.2.10",
-  
-    
-  "twitter-api-v2": "^1.12.7"
-  
-  }
+  
+"name": "weatherapp-api",
+  
+"version": "1.0.0",
+  
+"description": "",
+  
+"main": "index.js",
+  
+"scripts": {
+  
+  
+"test": "echo \"Error: no test specified\" && exit 1",
+  
+  
+"devStart": "nodemon server.js"
+  
+},
+  
+"keywords": [],
+  
+"author": "",
+  
+"license": "ISC",
+  
+"dependencies": {
+  
+  
+"canvas": "^2.10.1",
+  
+  
+"cors": "^2.8.5",
+  
+  
+"dotenv": "^16.0.2",
+  
+  
+"express": "^4.18.1",
+  
+  
+"firebase": "^9.9.4",
+  
+  
+"firebase-admin": "^11.0.1",
+  
+  
+"node-fetch": "^3.2.10",
+  
+  
+"twit": "^2.2.11",
+  
+  
+"twitter-api-v2": "^1.12.7"
+  
+}
 }

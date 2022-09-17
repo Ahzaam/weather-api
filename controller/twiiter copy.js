@@ -14,7 +14,8 @@ const tweet = async (msg) => new Promise(async (resolve, reject) => {
     });
   
       try{
-        resolve(twitterClient.readWrite.v1.tweet(msg))
+        let status = await twitterClient.readWrite.v1.tweet(msg)
+        resolve(status)
       } catch(e){
         reject(false)
       }

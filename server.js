@@ -11,24 +11,17 @@ const {
   getForCastByCity,
 } = require("./apis/weather");
 
-const tweet = require('./controller/twiiter')
-
+const tweet = require("./controller/twitter");
+const draw = require("./controller/draw")
 const { saveData, saveForecast } = require("./controller/collections");
-
-
-
 
 app.use(cors());
 
 app.use(checkapikey);
 
-
-
-
 app.get("/byip", async (req, res) => {
- 
   const ipAddresses = req.header("x-forwarded-for");
-  console.log('getting request')
+  console.log("getting request");
   await getAllDataByIp(ipAddresses)
     .then((response) => res.send(response))
     .catch((err) => {
@@ -37,21 +30,13 @@ app.get("/byip", async (req, res) => {
 });
 
 app.get("/weather/:city", async (req, res) => {
-  
   await getAllDataByCity(req.params.city)
     .then(async (result) => {
       result.cached = await saveData(req.params.city, result);
-      // console.log(result)
-      // console.log(result.Weather.name)
-      // console.log(result.Weather.weather)
 
-      if(result.Weather.weather[0].description != undefined){
-        let cap = result.Weather.weather[0].description.charAt(0).toUpperCase() + result.Weather.weather[0].description.slice(1)
+      if (result.Weather.weather[0].description != undefined) {
 
-        let tweetmsg = `${cap} in ${result.Weather.name}, \nFeels like ${(result.Weather.main.temp - 273.15).toFixed(3) }°C with ${result.Weather.main.humidity}% Humidity and the wind speed of ${result.Weather.wind.speed} km/h \n\n#${result.Weather.name} #${result.Weather.sys.country} \nTweet from https://weather-forecast-92773.web.app`
-
-        await tweet(tweetmsg)
-        
+        await tweet(result);
       }
       res.status(200).send(result);
     })
@@ -73,23 +58,20 @@ app.get("/forcast/:city", async (req, res) => {
 });
 
 app.get("/alumadoluma", (req, res) => {
-  
   const id = crypto.randomBytes(10).toString("hex");
-  res.send(id)
+  res.send(id);
 });
 app.get("/env", (req, res) => {
   res.send(process.env.FIREBASE_ADMIN_SDK);
 });
 
-app.get("/tweet", (req, res) => {
-  res.send('Tweeting')
+app.get("/draw", async (req, res) => {
+  let data = await draw(00, '01d', 29, 7, "Kandy");
+  res.send(`<img src='${data}' alt='image' />`)
 });
 app.get("/calback/tweet", async (req, res) => {
-  res.send("hello") 
+  res.send("hello");
 });
-
-
-
 
 app.listen(3000, () => {
   console.log("Server is running on http://localhost:3000");
