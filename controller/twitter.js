@@ -1,7 +1,7 @@
 const TwitterApi = require("twit");
-
+const fs = require("fs");
 const { getToken } = require("./collections");
-const draw = require("./draw");
+// const draw = require("./draw");
 
 const tweet = async (result) =>
   new Promise(async (resolve, reject) => {
@@ -28,12 +28,14 @@ const tweet = async (result) =>
       result.Weather.sys.country
     } \nTweet from weatherapp : https://weather-forecast-92773.web.app`;
 
-    let raw_b64 = await draw(result.Weather.timezone, result.Weather.weather[0].icon, tempnew, result.Weather.wind.speed, result.Weather.name)
+    // let raw_b64 = await draw(result.Weather.timezone, result.Weather.weather[0].icon, tempnew, result.Weather.wind.speed, result.Weather.name)
      
-    var b64content = raw_b64.replace(/^data:image\/\w+;base64,/, "");
+    var b64content = fs.readFileSync(`./assets/png/01d@2x.png.opdownload`, { encoding: 'base64' })
+    
+    // raw_b64.replace(/^data:image\/\w+;base64,/, "");
     console.log(b64content)
     
-
+    // assets\png\01d@2x.png.opdownload
     // await draw(result.Weather.timezone, result.Weather.weather[0].icon, tempnew, result.Weather.wind.speed, result.Weather.name)
       
     console.log(b64content)
@@ -43,7 +45,7 @@ const tweet = async (result) =>
         var mediaIdStr = data.media_id_string
         var altText = `${city} Weather`
         var meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
-
+        console.log("meida ok")
         twitterClient.post('media/metadata/create', meta_params, function (err, data, response) {
           if (!err) {
             // now we can reference the media and post a tweet (media will attach to the tweet)
@@ -54,6 +56,7 @@ const tweet = async (result) =>
               resolve(data)
             })
           }
+          console.log("file not k")
         })
       })
   });

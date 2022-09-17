@@ -2,25 +2,6 @@ const express = require("express");
 const app = express();
 
 
-if (
-  process.env.LD_LIBRARY_PATH == null ||
-  !process.env.LD_LIBRARY_PATH.includes(
-    `${process.env.PWD}/node_modules/canvas/build/Release:`,
-  )
-) {
-  process.env.LD_LIBRARY_PATH = `${
-    process.env.PWD
-  }/node_modules/canvas/build/Release:${process.env.LD_LIBRARY_PATH || ''}`;
-}
-
-
-
-
-
-
-
-
-
 const cors = require("cors");
 const crypto = require("crypto");
 require("dotenv").config();
@@ -32,7 +13,7 @@ const {
 } = require("./apis/weather");
 
 const tweet = require("./controller/twitter");
-const draw = require("./controller/draw")
+// const draw = require("./controller/draw")
 const { saveData, saveForecast } = require("./controller/collections");
 
 app.use(cors());
@@ -86,8 +67,8 @@ app.get("/env", (req, res) => {
 });
 
 app.get("/draw", async (req, res) => {
-  let data = await draw(00, '01d', 29, 7, "Kandy");
-  res.send(`<img src='${data}' alt='image' />`)
+
+  res.send(`<img src='' alt='image' />`)
 });
 app.get("/calback/tweet", async (req, res) => {
   res.send("hello");
