@@ -1,5 +1,5 @@
 const TwitterApi = require("twit");
-const fs = require("fs");
+
 const { getToken } = require("./collections");
 const draw = require("./draw");
 
