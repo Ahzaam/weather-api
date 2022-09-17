@@ -11,22 +11,19 @@ const {
   getForCastByCity,
 } = require("./apis/weather");
 
-const { saveData, saveForecast } = require("./controller/collections");
-// var corsOptions = [
-//   {
-//     origin: "http://localhost:4200",
-//     optionsSuccessStatus: 200, // For legacy browser support
-//   },
-//   {
-//     origin: "https://weather-forecast-92773.web.app",
-//     optionsSuccessStatus: 200, // For legacy browser support
-//   },
-// ];
+const tweet = require('./controller/twiiter')
 
-// app.use(cors(corsOptions));
+const { saveData, saveForecast } = require("./controller/collections");
+
+
+
+
 app.use(cors());
 
 app.use(checkapikey);
+
+
+
 
 app.get("/byip", async (req, res) => {
  
@@ -44,7 +41,18 @@ app.get("/weather/:city", async (req, res) => {
   await getAllDataByCity(req.params.city)
     .then(async (result) => {
       result.cached = await saveData(req.params.city, result);
+      // console.log(result)
+      // console.log(result.Weather.name)
+      // console.log(result.Weather.weather)
 
+      if(result.Weather.weather[0].description != undefined){
+        let cap = result.Weather.weather[0].description.charAt(0).toUpperCase() + result.Weather.weather[0].description.slice(1)
+
+        let tweetmsg = `${cap} in ${result.Weather.name}, \nFeels like ${result.Weather.main.temp - 273.15 }°C with ${result.Weather.main.humidity}% Humidity and the wind speed of ${result.Weather.wind.speed} km/h \n\n#${result.Weather.name} #${result.Weather.sys.country} \nTweet from weatherapp : https://weather-forecast-92773.web.app`
+        
+        await tweet(tweetmsg)
+        
+      }
       res.status(200).send(result);
     })
     .catch((err) => {
@@ -73,9 +81,16 @@ app.get("/env", (req, res) => {
   res.send(process.env.FIREBASE_ADMIN_SDK);
 });
 
-app.get("/ahzamisnice/:ip", (req, res) => {
-  res.send(req.params.ip);
+app.get("/tweet", (req, res) => {
+  res.send('Tweeting')
 });
+app.get("/calback/tweet", async (req, res) => {
+  res.send("hello") 
+});
+
+
+
+
 app.listen(3000, () => {
   console.log("Server is running on http://localhost:3000");
 });

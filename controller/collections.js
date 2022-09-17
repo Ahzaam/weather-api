@@ -40,9 +40,14 @@ Collections = {
     return ret
     
   },
-  getForecast: {
-    
-  }
-}
+  getToken: async () => new Promise((async (resolve, reject) => {
+    const token = db.collection('token').doc('twitter')
+    const tokens = await token.get()
+    .then(data => {resolve(data.data())})
+    .catch(err => {reject(err)})
+  })
+
+
+)}
 
 module.exports = Collections
