@@ -33,7 +33,7 @@ const tweet = async (result) =>
       result.Weather.weather[0].description.charAt(0).toUpperCase() +
       result.Weather.weather[0].description.slice(1);
 
-    let tweetmsg = `${cap} in ${city}, \nFeels like ${temp}°C with ${result.Weather.main.humidity}% Humidity and the wind speed of ${result.Weather.wind.speed} km/h \n\n#${result.Weather.name} #${result.Weather.sys.country} \nVisit : https://weather-forecast-92773.web.app \n\n\nTweeted by Node JS at ${utc_timestamp}ms | Dev Ahzam`;
+    let tweetmsg = `${cap} in ${city}, \nFeels like ${temp}°C with ${result.Weather.main.humidity}% Humidity and the wind speed of ${result.Weather.wind.speed} km/h \n\n#${result.Weather.name} #${result.Weather.sys.country} \nVisit : https://weather-forecast-92773.web.app \n\n\nTweeted by Node JS at ${utc_timestamp}ms | Dev @FawmeeAhzam`;
 
     // let raw_b64 = await draw(result.Weather.timezone, result.Weather.weather[0].icon, tempnew, result.Weather.wind.speed, result.Weather.name)
 
