@@ -33,7 +33,14 @@ ctx.fillText(city, 60, 690)
 ctx.font = '20px "Quicksand"'
 ctx.fillText("Dev Ahzam | Genarated by Node js ", 420, 735)
 
+var now = new Date;
+var utc_timestamp = Date.UTC(now.getUTCFullYear(),now.getUTCMonth(), now.getUTCDate() , 
+      now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
 
+
+ctx.font = '16px "Quicksand"'
+ctx.fillText("Generated at " + utc_timestamp + 'ms', 20, 735)
+ 
 ctx.strokeRect(0, 0, 750, 750);
 
 // Draw cat with lime helmet
