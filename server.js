@@ -48,8 +48,8 @@ app.get("/weather/:city", async (req, res) => {
       if(result.Weather.weather[0].description != undefined){
         let cap = result.Weather.weather[0].description.charAt(0).toUpperCase() + result.Weather.weather[0].description.slice(1)
 
-        let tweetmsg = `${cap} in ${result.Weather.name}, \nFeels like ${result.Weather.main.temp - 273.15 }°C with ${result.Weather.main.humidity}% Humidity and the wind speed of ${result.Weather.wind.speed} km/h \n\n#${result.Weather.name} #${result.Weather.sys.country} \nTweet from weatherapp : https://weather-forecast-92773.web.app`
-        
+        let tweetmsg = `${cap} in ${result.Weather.name}, \nFeels like ${(result.Weather.main.temp - 273.15).toFixed(3) }°C with ${result.Weather.main.humidity}% Humidity and the wind speed of ${result.Weather.wind.speed} km/h \n\n#${result.Weather.name} #${result.Weather.sys.country} \nTweet from weatherapp : https://weather-forecast-92773.web.app`
+
         await tweet(tweetmsg)
         
       }
