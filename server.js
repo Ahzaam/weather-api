@@ -13,7 +13,7 @@ const {
 } = require("./apis/weather");
 
 const tweet = require("./controller/twitter");
-// const draw = require("./controller/draw")
+const draw = require("./controller/draw")
 const { saveData, saveForecast } = require("./controller/collections");
 
 app.use(cors());
@@ -67,10 +67,12 @@ app.get("/env", (req, res) => {
 });
 
 app.get("/draw", async (req, res) => {
-
-  res.send(`<img src='' alt='image' />`)
+  
+  let b64img = await draw(23103000123, '01d', 28, 5.16, 'Kandy')
+  res.send(`<img src='${b64img}' alt='image' />`)
 });
 app.get("/calback/tweet", async (req, res) => {
+
   res.send("hello");
 });
 
