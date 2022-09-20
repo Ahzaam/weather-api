@@ -81,8 +81,8 @@ Weather = {
           
           await Weather.getAirData(
             
-            all_data.Weather.coord.lon,
-            all_data.Weather.coord.lat
+            all_data.Weather.coord.longitude,
+            all_data.Weather.coord.latitude
           )
             .then((result) => {
                 
