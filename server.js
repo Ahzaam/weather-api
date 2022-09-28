@@ -27,6 +27,7 @@ app.get("/byip", async (req, res) => {
     .then((response) => res.send(response))
     .catch((err) => {
       console.error(`{"message": ${err}, "task":"/ get"}`);
+      res.send(err)
     });
 });
 
