@@ -41,6 +41,7 @@ Weather = {
           }
         )
         .on("error", (err) => {
+          console.error(err)
           reject(err + 'get air data');
         });
     }),
@@ -64,6 +65,7 @@ Weather = {
           }
         )
         .on("error", (err) => {
+          console.error(err)
           reject(err + 'get air data');
         });
     }),
@@ -94,10 +96,12 @@ Weather = {
             .catch((err) => {
               all_data.Air = { message: "Air data Not Found" };
               // returning without air data
+              console.error(err)
               reject(`{"message": ${err}}, "task":"get air data"`);
             });
         })
         .catch((err) => {
+          console.error(err)
           reject(`{"message": ${err}}, "task":"get weather data"`);
         });
     }),
@@ -116,13 +120,14 @@ Weather = {
                 responce.Ip = ipjsondata
                 resolve(responce)})
             .catch((err) =>{
+              console.error(err)
                 reject(`{"message": ${err}}, "task":"get Ip location"`)
             }
               
             );
         })
         .catch((err) => {
-          console.error(err+ 'mo**** ');
+          console.error(err)
           reject(`{"message": ${err}}, "task":"get all data by ip"`);
         });
     }),
@@ -140,7 +145,6 @@ Weather = {
            
                 // The whole response has been received. Print out the result.
                 resp.on('end', () => {
-                  console.log(data)
                    resolve(data)
                 });
               
