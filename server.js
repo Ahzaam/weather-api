@@ -25,8 +25,8 @@ app.get("/byip", async (req, res) => {
   await getAllDataByIp(ipAddresses) 
   .then((response) => res.send(response))
   .catch(async (err) => {
-    await getAllDataByIp(ipAddresses) 
-  .then((response) => res.send('8.8.8.8'))
+    await getAllDataByIp('8.8.8.8') 
+    .then((response) => res.send(response))
   .catch((err) => {
     res.send(err)
   });
