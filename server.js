@@ -116,7 +116,11 @@ async function getIpD(ip){
   await getAllDataByIp(ip) 
     .then((response) =>{ return response})
     .catch((err) => {
-      console.error(`{"message": ${err}, "task":"/ get"}`);
-      return response
+      if(ip !== '8.8.8.8'){
+        getAllDataByIp('8.8.8.8') 
+      }else{
+        return responce
+      } 
+     
     });
 }
