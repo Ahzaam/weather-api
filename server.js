@@ -34,7 +34,7 @@ app.get("/byip", async (req, res) => {
 app.get("/byip/:ip", async (req, res) => {
   const ipAddresses = req.params.ip
   console.log("getting request");
-  await getAllDataByIp(ipAddresses)
+  await getAllDataByIp(ipAddresses) 
     .then((response) => res.send(response))
     .catch((err) => {
       console.error(`{"message": ${err}, "task":"/ get"}`);
