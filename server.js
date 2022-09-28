@@ -22,23 +22,13 @@ app.use(checkapikey);
 
 app.get("/byip", async (req, res) => {
   const ipAddresses = req.header("x-forwarded-for");
-  console.log("getting request");
-  await getAllDataByIp(ipAddresses)
-    .then((response) => res.send(response))
-    .catch((err) => {
-      console.error(`{"message": ${err}, "task":"/ get"}`);
-      res.send(err)
-    });
+  res.send( getIpD(ipAddresses))
 });
 
 app.get("/byip/:ip", async (req, res) => {
   const ipAddresses = req.params.ip
-  console.log("getting request");
-  await getAllDataByIp(ipAddresses) 
-    .then((response) => res.send(response))
-    .catch((err) => {
-      console.error(`{"message": ${err}, "task":"/ get"}`);
-    });
+  res.send( getIpD(ipAddresses))
+  
 });
 
 
@@ -119,4 +109,14 @@ function checkapikey(req, res, next) {
       .status(401)
       .send({ message: "Unautharized User", apikey: apikey, verified: false });
   }
+}
+
+
+async function getIpD(ip){
+  await getAllDataByIp(ip) 
+    .then((response) =>{ return response})
+    .catch((err) => {
+      console.error(`{"message": ${err}, "task":"/ get"}`);
+      return response
+    });
 }
