@@ -80,7 +80,7 @@ Weather = {
           all_data.Weather = JSON.parse(result);
           // getting air data by lon, lat
           all_data.Weather.error = 'check this'
-          console.log(all_data.Weather)
+
           await Weather.getAirData(
             
             all_data.Weather.coord.longitude,

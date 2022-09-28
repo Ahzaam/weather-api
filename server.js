@@ -22,13 +22,30 @@ app.use(checkapikey);
 
 app.get("/byip", async (req, res) => {
   const ipAddresses = req.header("x-forwarded-for");
-  res.send( getIpD(ipAddresses))
+  await getAllDataByIp(ipAddresses) 
+  .then((response) => res.send(response))
+  .catch(async (err) => {
+    await getAllDataByIp(ipAddresses) 
+  .then((response) => res.send('8.8.8.8'))
+  .catch((err) => {
+    res.send(err)
+  });
+  });
 });
 
 app.get("/byip/:ip", async (req, res) => {
   const ipAddresses = req.params.ip
-  res.send( getIpD(ipAddresses))
-  
+
+
+  await getAllDataByIp(ipAddresses) 
+    .then((response) => res.send(response))
+    .catch(async (err) => {
+      await getAllDataByIp(ipAddresses) 
+    .then((response) => res.send('8.8.8.8'))
+    .catch((err) => {
+      res.send(err)
+    });
+    });
 });
 
 
@@ -109,18 +126,4 @@ function checkapikey(req, res, next) {
       .status(401)
       .send({ message: "Unautharized User", apikey: apikey, verified: false });
   }
-}
-
-
-async function getIpD(ip){
-  await getAllDataByIp(ip) 
-    .then((response) =>{ return response})
-    .catch((err) => {
-      if(ip !== '8.8.8.8'){
-        getAllDataByIp('8.8.8.8') 
-      }else{
-        return responce
-      } 
-     
-    });
 }
