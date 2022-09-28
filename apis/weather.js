@@ -128,7 +128,7 @@ Weather = {
         })
         .catch((err) => {
           console.error(err)
-          reject(`{"message": ${err}}, "task":"get all data by ip"`);
+          resolve(`{"message": ${err}}, "task":"get all data by ip"`);
         });
     }),
 
